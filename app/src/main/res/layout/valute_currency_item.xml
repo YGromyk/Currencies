@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/valute_logo"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="16dp"
+        android:src="@color/colorPrimaryDark"/>
+    <TextView
+        android:id="@+id/base_valute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/valute_logo"
+        android:layout_alignTop="@id/valute_logo"
+        android:text="USD"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"/>
+
+    <TextView
+        android:id="@+id/to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/base_valute"
+        android:layout_alignTop="@id/valute_logo"
+        android:text="TO"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"/>
+    <TextView
+        android:id="@+id/second_valute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/to"
+        android:layout_alignTop="@id/valute_logo"
+        android:text="UAH"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"/>
+    <TextView
+        android:id="@+id/buy_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/valute_logo"
+        android:layout_alignBottom="@id/valute_logo"
+        android:text="27.785"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"/>
+    <TextView
+        android:id="@+id/sell_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/buy_price"
+        android:layout_alignBottom="@id/valute_logo"
+        android:layout_alignStart="@+id/second_valute"
+        android:text="27.785" />
+</RelativeLayout>
