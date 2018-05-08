@@ -1,5 +1,6 @@
 package com.example.fepeprog.currencies;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.fepeprog.currencies.APIs.Currency;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +19,11 @@ public class AdapterCurrency extends RecyclerView.Adapter<AdapterCurrency.ViewHo
     private ArrayList<Currency> dataCurrency;
     private int itemLayout;
 
-    public AdapterCurrency(ArrayList<Currency> data){
+    public AdapterCurrency(ArrayList<Currency> data) {
         dataCurrency = data;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView valuteLogo;
         public TextView baseValute;
         public TextView secondValute;
@@ -31,13 +33,12 @@ public class AdapterCurrency extends RecyclerView.Adapter<AdapterCurrency.ViewHo
 
         public ViewHolder(View itemView) {
             super(itemView);
-            valuteLogo = (ImageView)itemView.findViewById(R.id.valute_logo);
-            baseValute = (TextView)itemView.findViewById(R.id.base_valute);
-            secondValute = (TextView)itemView.findViewById(R.id.second_valute);
-            buyPrice = (TextView)itemView.findViewById(R.id.buy_price);
-            sellPrice = (TextView)itemView.findViewById(R.id.sell_price);
+            valuteLogo = (ImageView) itemView.findViewById(R.id.valute_logo);
+            baseValute = (TextView) itemView.findViewById(R.id.base_valute);
+            secondValute = (TextView) itemView.findViewById(R.id.second_valute);
+            buyPrice = (TextView) itemView.findViewById(R.id.buy_price);
+            sellPrice = (TextView) itemView.findViewById(R.id.sell_price);
         }
-
 
 
     }
@@ -55,8 +56,26 @@ public class AdapterCurrency extends RecyclerView.Adapter<AdapterCurrency.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Currency currency = dataCurrency.get(position);
+        String flag = "";
+        switch (currency.getCcy()) {
+            case "USD":
+                flag = "us";
+                break;
+            case "EUR":
+                flag = "eu";
+                break;
+            case "RUR":
+                flag = "ru";
+                break;
+            case "BTC":
+                flag = "https://en.bitcoin.it/w/images/en/6/69/Btc-sans.png";
+                break;
+        }
+        if (currency.getCcy().equals("BTC"))
+            Picasso.get().load(flag).into(holder.valuteLogo);
+        else
+            Picasso.get().load("http://www.countryflags.io/" + flag + "/flat/64.png").into(holder.valuteLogo);
 
-        //holder.valuteLogo.setImageDrawable(R.drawable.ic_notifications_black_24dp);
         holder.baseValute.setText(currency.getCcy());
         holder.secondValute.setText(currency.getBaseCcy());
         holder.buyPrice.setText(currency.getBuy());
