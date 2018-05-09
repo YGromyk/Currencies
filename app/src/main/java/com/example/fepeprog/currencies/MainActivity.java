@@ -6,11 +6,13 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fepeprog.currencies.APIs.Currency;
+import com.example.fepeprog.currencies.APIs.Fuel;
 import com.example.fepeprog.currencies.APIs.PrivatBankAPI;
 
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
     private static PrivatBankAPI privatBankAPI;
     private TextView mTextMessage;
+    String[] currencies = {"usd_uah", "eur_uah", "rub_uah", "pln_uah" };
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -33,13 +36,13 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                    Toast.makeText(MainActivity.this, "Currencies", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                    Toast.makeText(MainActivity.this, "Dashboard", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                    Toast.makeText(MainActivity.this, "Notifications", Toast.LENGTH_SHORT).show();
                     return true;
             }
             return false;
@@ -84,6 +87,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Currency>> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "ERROR!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        privatBankAPI = retrofit.create(PrivatBankAPI.class);
+        String[] fuels = {"A80","A92","A95", "DT"};
+        for(String type : fuels)
+        getAPI().getFuelPrices("20", type).enqueue(new Callback<List<Fuel>>() {
+            @Override
+            public void onResponse(Call<List<Fuel>> call, Response<List<Fuel>> response) {
+                for(Fuel fuel:response.body())
+                    Log.d("FUEL", "onResponse: "+fuel.getType()+"   "+fuel.getPrice());
+            }
+
+            @Override
+            public void onFailure(Call<List<Fuel>> call, Throwable t) {
+
             }
         });
 
